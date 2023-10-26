@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Timesheet</title>
+</head>
+<body>
+    <h1>Add Time Entry</h1>
+    <form method="POST" action="{% url 'time' %}">
+        {% csrf_token %}
+        <label for="date">Date:</label>
+        <input type="date" id="date" name="date" required><br>
+        
+        <label for="hours_worked">Hours Worked:</label>
+        <input type="number" step="0.01" id="hours_worked" name="hours_worked" required><br>
+        
+        <label for="description">Description:</label><br>
+        <textarea id="description" name="description" rows="4" cols="50" required></textarea><br>
+        
+        <button type="submit">Add Entry</button>
+    </form>
+
+    <h1>Timesheet</h1>
+    <table>
+        <tr>
+            <th>Date</th>
+            <th>Hours Worked</th>
+            <th>Description</th>
+        </tr>
+        {% for entry in entries %}
+        <tr>
+            <td>{{ entry.date }}</td>
+            <td>{{ entry.hours_worked }}</td>
+            <td>{{ entry.description }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
